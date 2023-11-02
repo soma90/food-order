@@ -9,7 +9,7 @@
 * useEffect와 setTimeout을 이용해 버튼 애니메이션을 추가하고 클린업 함수를 이용해 타이머 리셋
 
 ## 프로젝트 구성
-├── src
+├── src<br/>
 ├─── assets : 프로젝트에 사용된 이미지<br/>
 ├─── components<br/>
 ├──── Cart: 장바구니 관련 컴퍼넌트<br/>
