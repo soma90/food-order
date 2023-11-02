@@ -10,16 +10,16 @@
 
 ## 프로젝트 구성
 ├── src<br/>
-├─── assets : 프로젝트에 사용된 이미지<br/>
-├─── components<br/>
-├──── Cart: 장바구니 관련 컴퍼넌트<br/>
-├──── Layout: 헤더 레이아웃 컴퍼넌트<br/>
-├──── Meals: 음식 메뉴 관련 컴퍼넌트<br/>
-├──── UI: 공통으로 사용되는 컴퍼넌트<br/>
-├─── store : state 관리<br/> 
-├─ App.js<br/>
-├─ index.css<br/>
-├─ index.js<br/>
+├──── assets : 프로젝트에 사용된 이미지<br/>
+├──── components<br/>
+├────── Cart: 장바구니 관련 컴퍼넌트<br/>
+├────── Layout: 헤더 레이아웃 컴퍼넌트<br/>
+├────── Meals: 음식 메뉴 관련 컴퍼넌트<br/>
+├────── UI: 공통으로 사용되는 컴퍼넌트<br/>
+├──── store : state 관리<br/> 
+├─── App.js<br/>
+├─── index.css<br/>
+├─── index.js<br/>
 └─ README.md<br/>
 
 ## 사용한 기술 스택 및 라이브러리
