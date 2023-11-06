@@ -5,12 +5,15 @@ import Modal from "../UI/Modal";
 import classes from "./Cart.module.css";
 import CartContext from "../../store/cart-context";
 import Checkout from "./Checkout";
+import useHttp from "../../hooks/ues-http";
 
 const Cart = (props) => {
   const [isCheckout, setIsCheckout] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [didSubmit, setDidSubmit] = useState(false);
+
   const cartCtx = useContext(CartContext);
+
+  const { isLoading: isSubmitting, sendRequest: submitRequest } = useHttp();
 
   const totalAmount = `$${cartCtx.totalAmount.toFixed(2)}`;
   const hasItems = cartCtx.items.length > 0;
@@ -28,20 +31,23 @@ const Cart = (props) => {
   };
 
   const submitOrderHandler = async (userData) => {
-    setIsSubmitting(true);
-    await fetch(
-      "https://food-order-8064b-default-rtdb.asia-southeast1.firebasedatabase.app/orders.json",
+    submitRequest(
       {
+        url: "https://food-order-8064b-default-rtdb.asia-southeast1.firebasedatabase.app/orders.json",
         method: "POST",
-        body: JSON.stringify({
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: {
           user: userData,
           oderedItems: cartCtx.items,
-        }),
+        },
+      },
+      () => {
+        setDidSubmit(true);
+        cartCtx.clearCart();
       }
     );
-    setIsSubmitting(false);
-    setDidSubmit(true);
-    cartCtx.clearCart();
   };
 
   const cartItems = (

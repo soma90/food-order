@@ -1,42 +1,38 @@
 import { useState, useEffect } from "react";
 
+import useHttp from "../../hooks/ues-http";
 import Card from "../UI/Card";
 import MealItem from "./MealItem/MealItme";
 import classes from "./AvailableMeals.module.css";
 
 const AvailableMeals = () => {
   const [meals, setMeals] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [httpError, setHttpError] = useState();
+
+  const { isLoading, error: httpError, sendRequest: fetchMeals } = useHttp();
 
   useEffect(() => {
-    const fetchMeals = async () => {
-      const response = await fetch(
-        "https://food-order-8064b-default-rtdb.asia-southeast1.firebasedatabase.app/meals.json"
-      );
-
-      const responseData = await response.json();
-
+    const transformMeals = (data) => {
       const loadedMeals = [];
 
-      for (const key in responseData) {
+      for (const key in data) {
         loadedMeals.push({
           id: key,
-          name: responseData[key].name,
-          description: responseData[key].description,
-          price: responseData[key].price,
+          name: data[key].name,
+          description: data[key].description,
+          price: data[key].price,
         });
       }
 
       setMeals(loadedMeals);
-      setIsLoading(false);
     };
 
-    fetchMeals().catch((error) => {
-      setIsLoading(false);
-      setHttpError(error.message);
-    });
-  }, []);
+    fetchMeals(
+      {
+        url: "https://food-order-8064b-default-rtdb.asia-southeast1.firebasedatabase.app/meals.json",
+      },
+      transformMeals
+    );
+  }, [fetchMeals]);
 
   if (isLoading) {
     return (
